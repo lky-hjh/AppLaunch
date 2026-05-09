@@ -17,7 +17,12 @@ import threading
 import webbrowser
 
 # ─── 路径 ──────────────────────────────────────────────────────────────────
-CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "apps.json")
+# PyInstaller --onefile 模式下 __file__ 指向临时解压目录，需改用 sys.executable
+if getattr(sys, 'frozen', False):
+    APP_DIR = os.path.dirname(sys.executable)
+else:
+    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_FILE = os.path.join(APP_DIR, "apps.json")
 
 # ─── 调色板 ────────────────────────────────────────────────────────────────
 # 主色
